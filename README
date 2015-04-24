@@ -121,9 +121,6 @@ BEST PRACTICES
 Strings should never be hard-coded into a DOM element. The localization plugin should populate all strings in all DOM elements.
 Using the object syntax for localizing strings with placeholders is preferred due to its increased readability.
 
-For a complete list of Amazon-wide localization best practices, please visit the I18N Tech Review Checklist at:
-https://w.amazon.com/index.php/I18N/I18N_Best_Practices/I18N_Tech_Review_Checklist
-
 LOAD FROM API (OPTIONAL)
 If you choose to load your strings from an API, rather than from local JSON files, you will need to update values
 in data-localize on <body>. "loadFromAPI" should be set to true, and "apiPath" should reference the location of your
