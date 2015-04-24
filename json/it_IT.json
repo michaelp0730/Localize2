@@ -1,0 +1,6 @@
+{
+    "helloString": "Ciao",
+    "goodbyeString": "Addio",
+    "myNameIsString": "Il mio nome e %{name}",
+    "whoIsString": "Che e %{firstName} %{lastName}?"
+}

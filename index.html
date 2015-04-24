@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Localize Plugin</title>
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            font-size: 16px;
+            color: #222; }
+    </style>
+</head>
+
+<body data-localize='{
+    "locale": "en_US",
+    "validLocales": ["en_US", "de_DE", "it_IT"],
+    "localPath": "./json/",
+    "loadFromAPI": false,
+    "apiPath": "./json/en_US.json",
+    "timeoutInMills": "",
+    "legacySupport": false,
+    "debug": true
+}'>
+    <h1>Localize Plugin</h1>
+    <p id="one"></p>
+    <p id="two"></p>
+    <p id="three"></p>
+    <p id="four"></p>
+    <p id="five"></p>
+
+    <button id="german-button">Switch to German</button>
+    <button id="italian-button">Switch to Italian</button>
+    <button id="english-button">Switch to English</button>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="js/Localize.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

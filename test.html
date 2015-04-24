@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Localize Plugin</title>
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            font-size: 16px;
+            color: #222; }
+    </style>
+    <link rel="stylesheet" href="css/QUnit-1.15.css" />
+</head>
+
+ <body data-localize='{
+    "locale": "en_US",
+    "validLocales": ["en_US", "de_DE", "it_IT"],
+    "localPath": "./json/",
+    "loadFromAPI": false,
+    "apiPath": "path/to/your/api",
+    "timeoutInMills": "",
+    "debug": true
+}'>
+    <h1>Localize Plugin</h1>
+    <p id="one">String one</p>
+    <p id="two">String two</p>
+    <p id="three">String three</p>
+    <p id="four">String four</p>
+    <p id="five">String five</p>
+    <div id="qunit"></div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="tst/vendor/QUnit-1.15.js"></script>
+<script src="js/Localize.js"></script>
+<script src="tst/tests.js"></script>
+</body>
+</html>

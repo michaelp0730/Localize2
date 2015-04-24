@@ -1,0 +1,132 @@
+This plugin is meant for localizing applications on the front-end without
+forcing a page refresh. The plugin reads JSON files stored on the front-end of
+your application consisting of string ID's and string values. Each locale should
+have its own JSON file. The plugin depends on jQuery version 1.5 or higher.
+The test cases were written with QUnit.
+
+-- Code Examples --
+
+Assume you have the following HTML:
+
+<body data-localize='{
+    "locale": "en_US",
+    "validLocales": ["en_US", "de_DE", "it_IT"],
+    "localPath": "./json/",
+    "loadFromAPI": false,
+    "apiPath": "path/to/your/api",
+    "timeoutInMills": "",
+    "debug": true
+}'>
+
+<p id="one"></p>
+<p id="two"></p>
+<p id="three"></p>
+<p id="four"></p>
+<p id="five"></p>
+
+<button id="german-button">Switch to German</button>
+<button id="italian-button">Switch to Italian</button>
+<button id="english-button">Switch to English</button>
+
+Assume you have the folloiwng JSON files:
+en_US.json -
+{
+    "helloString": "Hello",
+    "goodbyeString": "Goodbye",
+    "myNameIsString": "My name is %{name}",
+    "whoIsString": "Who is %{firstName} %{lastName}?"
+}
+
+it_IT.json -
+{
+    "helloString": "Ciao",
+    "goodbyeString": "Addio",
+    "myNameIsString": "Il mio nome e %{name}",
+    "whoIsString": "Che e %{firstName} %{lastName}?"
+}
+
+de_DE.json -
+{
+    "helloString": "Hallo",
+    "goodbyeString": "Auf Wiedersein",
+    "myNameIsString": "Ich heisse %{name}",
+    "whoIsString": "Wer ist %{firstName} %{lastName}?"
+}
+
+
+After loading jQuery and Localize.js you could control your page with the following JavaScript:
+$(document).ready(function () {
+    'use strict';
+
+    var localizeElements = function localizeElements() {
+        // When one parameter is passed to .localize(), it should represent a string ID
+        // This approach assumes that there are no placeholders within the string
+        $('#one').localize('helloString');
+
+        // This is an example of localizing a string with no placeholders by passing an object as a parameter
+        $('#two').localize({
+            stringid: 'goodbyeString'
+        });
+
+        // In this example we are localizing a string that does have a placeholder of %{name}
+        // We pass an object referencing the string ID and the name of the placeholder
+        $('#three').localize({
+            stringid: 'myNameIsString',
+            name: 'John'
+        });
+
+        // Here is an example of localizing a string with multiple placeholders using an object
+        $('#four').localize({
+            stringid: 'whoIsString',
+            firstName: 'John',
+            lastName: 'Doe'
+        });
+
+        // Here we are locazling the same string as before, which contains multiple placeholders
+        // In this example we are passing an array of values as a parameter to .localize()
+        // When passing an array to .localize(), the order of values does matter
+        // The first value should represent your string ID
+        // Subsequent values in the array should populate each placeholder in the string in order
+        $('#five').localize(['whoIsString', 'John', 'Doe']);
+    };
+
+    localizeElements();
+
+    $('#german-button').click(function () {
+        $('body').localize('de_DE');
+        localizeElements();
+    });
+
+    $('#italian-button').click(function () {
+        $('body').localize('it_IT');
+        localizeElements();
+    });
+
+    $('#english-button').click(function () {
+        $('body').localize('en_US');
+        localizeElements();
+    });
+
+    /*
+     * If you're listening for the changeLocale event, you would trigger that event like so:
+     * $('body').trigger('changeLocale', ['de_DE']);
+     */
+    $body.on('changeLocale', function (event, locale) {
+        $body.localize(locale);
+        localizeElements();
+    });
+});
+
+BEST PRACTICES
+Strings should never be hard-coded into a DOM element. The localization plugin should populate all strings in all DOM elements.
+Using the object syntax for localizing strings with placeholders is preferred due to its increased readability.
+
+For a complete list of Amazon-wide localization best practices, please visit the I18N Tech Review Checklist at:
+https://w.amazon.com/index.php/I18N/I18N_Best_Practices/I18N_Tech_Review_Checklist
+
+LOAD FROM API (OPTIONAL)
+If you choose to load your strings from an API, rather than from local JSON files, you will need to update values
+in data-localize on <body>. "loadFromAPI" should be set to true, and "apiPath" should reference the location of your
+API. You will still need to pass the appropriate locale to $('body').localize(), as well as update the path to your
+API (if necessary) to load the appropriate string set.
+
